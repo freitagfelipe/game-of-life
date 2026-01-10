@@ -5,7 +5,7 @@ import "vendor:raylib"
 
 SCREEN_WIDTH :: 900
 SCREEN_HEIGHT :: 600
-SQUARE_SIZE :: 30
+SQUARE_SIZE :: 20
 GRID_ROWS :: SCREEN_HEIGHT / SQUARE_SIZE
 GRID_COLUMNS :: SCREEN_WIDTH / SQUARE_SIZE
 
@@ -26,11 +26,13 @@ App :: struct {
 init_grid :: proc(grid_texture: raylib.RenderTexture2D) {
     raylib.BeginTextureMode(grid_texture)
 
+    line_color := raylib.Fade(raylib.GRAY, 0.7)
+
     for i in 1..=GRID_ROWS {
         raylib.DrawLineV(
             {0, f32(i * SQUARE_SIZE)},
             {SCREEN_WIDTH, f32(i * SQUARE_SIZE)},
-            raylib.GRAY,
+            line_color,
         )
     }
 
@@ -38,7 +40,7 @@ init_grid :: proc(grid_texture: raylib.RenderTexture2D) {
         raylib.DrawLineV(
             {f32(i * SQUARE_SIZE), 0},
             {f32(i * SQUARE_SIZE), SCREEN_HEIGHT},
-            raylib.GRAY,
+            line_color,
         )
     }
 
