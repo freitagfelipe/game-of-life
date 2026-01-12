@@ -8,6 +8,8 @@ SCREEN_HEIGHT :: 600
 SQUARE_SIZE :: 25
 GRID_ROWS :: SCREEN_HEIGHT / SQUARE_SIZE
 GRID_COLUMNS :: SCREEN_WIDTH / SQUARE_SIZE
+SETUP_FPS :: 120
+RUNNING_FPS :: 15
 
 State :: enum {
     Setup = 1,
@@ -125,7 +127,7 @@ keyboard_input_handler :: proc(app: ^App) {
         #partial switch raylib.GetKeyPressed() {
         case raylib.KeyboardKey.ENTER:
             raylib.SetWindowTitle("Game of life - Running")
-            raylib.SetTargetFPS(15)
+            raylib.SetTargetFPS(RUNNING_FPS)
 
             app.state = State.Running
         case raylib.KeyboardKey.R:
@@ -140,7 +142,7 @@ keyboard_input_handler :: proc(app: ^App) {
             app.state = State.Paused
         case raylib.KeyboardKey.R:
             raylib.SetWindowTitle("Game of life - Setup")
-            raylib.SetTargetFPS(60)
+            raylib.SetTargetFPS(SETUP_FPS)
 
             app.state = State.Setup
             app.cells = {}
@@ -153,7 +155,7 @@ keyboard_input_handler :: proc(app: ^App) {
             app.state = State.Running
         case raylib.KeyboardKey.R:
             raylib.SetWindowTitle("Game of life - Setup")
-            raylib.SetTargetFPS(60)
+            raylib.SetTargetFPS(SETUP_FPS)
 
             app.state = State.Setup
             app.cells = {}
@@ -221,7 +223,7 @@ running_screen :: proc(app: ^App) {
 main :: proc() {
     raylib.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Game of life - Setup")
 
-    raylib.SetTargetFPS(60)
+    raylib.SetTargetFPS(SETUP_FPS)
 
     app := App {
         state = State.Setup,
